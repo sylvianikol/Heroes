@@ -13,7 +13,7 @@ public class UserLoginBindingModel {
     }
 
     @NotBlank(message = "Username can not be null or empty")
-    @Email(message = "Username not valid!")
+    @Size(min = 3, max = 20, message = "Username length must be between 3 and 20 characters ")
     public String getUsername() {
         return username;
     }
