@@ -21,7 +21,6 @@ public class HomeController {
         if (httpSession.getAttribute("user") == null) {
             return "index";
         }
-
         return "home";
     }
 
@@ -32,7 +31,7 @@ public class HomeController {
         }
 
         // get all heroes ordered by level  descending
-        // model.addAtribute("heroes")
+        // model.addAttribute("heroes")
 
         return "home";
     }
