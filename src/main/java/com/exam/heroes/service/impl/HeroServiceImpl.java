@@ -1,7 +1,9 @@
 package com.exam.heroes.service.impl;
 
+import com.exam.heroes.model.entity.Hero;
 import com.exam.heroes.model.service.HeroServiceModel;
 import com.exam.heroes.repository.HeroRepository;
+import com.exam.heroes.service.HeroClassService;
 import com.exam.heroes.service.HeroService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -13,10 +15,12 @@ import java.util.stream.Collectors;
 public class HeroServiceImpl implements HeroService {
 
     private final HeroRepository heroRepository;
+    private final HeroClassService heroClassService;
     private final ModelMapper modelMapper;
 
-    public HeroServiceImpl(HeroRepository heroRepository, ModelMapper modelMapper) {
+    public HeroServiceImpl(HeroRepository heroRepository, HeroClassService heroClassService, ModelMapper modelMapper) {
         this.heroRepository = heroRepository;
+        this.heroClassService = heroClassService;
         this.modelMapper = modelMapper;
     }
 
@@ -29,5 +33,19 @@ public class HeroServiceImpl implements HeroService {
                     return heroServiceModel;
                 })
                 .collect(Collectors.toUnmodifiableList());
+    }
+
+    @Override
+    public boolean add(HeroServiceModel heroServiceModel) {
+        Hero hero = this.modelMapper.map(heroServiceModel, Hero.class);
+        hero.setaHeroClass(this.heroClassService.findByName(heroServiceModel.getHeroClass()));
+
+        try {
+            this.heroRepository.save(hero);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
     }
 }

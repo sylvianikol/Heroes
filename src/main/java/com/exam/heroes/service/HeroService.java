@@ -7,4 +7,6 @@ import java.util.List;
 public interface HeroService {
 
     List<HeroServiceModel> getAll();
+
+    boolean add(HeroServiceModel heroServiceModel);
 }
