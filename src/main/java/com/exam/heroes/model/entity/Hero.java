@@ -10,7 +10,8 @@ import javax.persistence.Table;
 public class Hero extends BaseEntity {
 
     private String name;
-    private Clazz aClazz;
+    private String imageUrl;
+    private HeroClass heroClass;
     private int level;
 
     public Hero() {
@@ -25,13 +26,22 @@ public class Hero extends BaseEntity {
         this.name = name;
     }
 
-    @ManyToOne
-    public Clazz getaClass() {
-        return aClazz;
+    @Column(nullable = false)
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setaClass(Clazz aClazz) {
-        this.aClazz = aClazz;
+    public void setImageUrl(String image) {
+        this.imageUrl = image;
+    }
+
+    @ManyToOne
+    public HeroClass getaHeroClass() {
+        return heroClass;
+    }
+
+    public void setaHeroClass(HeroClass aHeroClass) {
+        this.heroClass = aHeroClass;
     }
 
     public int getLevel() {

@@ -4,11 +4,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "classes")
-public class Clazz extends BaseEntity {
+public class HeroClass extends BaseEntity {
 
     private ClassName name;
 
-    public Clazz() {
+    public HeroClass() {
     }
 
     @Enumerated(value = EnumType.STRING)
