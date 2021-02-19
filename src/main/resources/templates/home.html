@@ -17,8 +17,8 @@
                     class="col-md-3 d-flex flex-column text-center mb-3">
                 <img th:src="*{imageUrl}" class="img-thumb" width="300" height="300"/>
                 <h5 th:text="*{name}" class="text-white text-center">Warrior</h5>
-                <a class="btn btn-info mb-2" href="/heroes/details">Details</a>
-                <a class="btn btn-danger" href="/heroes/delete">Delete</a>
+                <a class="btn btn-info mb-2" th:href="@{/heroes/details/{id}(id = *{id})}">Details</a>
+                <a class="btn btn-danger" th:href="@{/heroes/delete/{id}(id = *{id})}">Delete</a>
             </div>
         </div>
     </div>

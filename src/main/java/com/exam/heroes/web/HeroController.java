@@ -2,6 +2,7 @@ package com.exam.heroes.web;
 
 import com.exam.heroes.model.binding.HeroCreateBindingModel;
 import com.exam.heroes.model.service.HeroServiceModel;
+import com.exam.heroes.model.view.HeroViewModel;
 import com.exam.heroes.service.HeroService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -67,6 +69,40 @@ public class HeroController {
             return "redirect:create";
         }
 
+        return "redirect:/home";
+    }
+
+    @GetMapping("/details/{id}")
+    public String details(@PathVariable String id,
+                          Model model, HttpSession httpSession) {
+
+        if (httpSession.getAttribute("user") == null) {
+            return "redirect:/users/login";
+        }
+
+        HeroViewModel hero = this.modelMapper.map(this.heroService.getById(id), HeroViewModel.class);
+        model.addAttribute("hero", hero);
+
+        return "details-hero";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable String id,
+                         Model model, HttpSession httpSession) {
+
+        if (httpSession.getAttribute("user") == null) {
+            return "redirect:/users/login";
+        }
+
+        HeroViewModel hero = this.modelMapper.map(this.heroService.getById(id), HeroViewModel.class);
+        model.addAttribute("hero", hero);
+
+        return "delete-hero";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteConfirm(@PathVariable String id) {
+        this.heroService.deleteById(id);
         return "redirect:/home";
     }
 }

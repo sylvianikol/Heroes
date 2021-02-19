@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,5 +48,18 @@ public class HeroServiceImpl implements HeroService {
         }
 
         return true;
+    }
+
+    @Override
+    public HeroServiceModel getById(String id) {
+        Hero hero = this.heroRepository.findById(id).orElse(null);
+        HeroServiceModel heroServiceModel = this.modelMapper.map(hero, HeroServiceModel.class);
+        heroServiceModel.setHeroClass(hero.getaHeroClass().getName());
+        return heroServiceModel;
+    }
+
+    @Override
+    public void deleteById(String id) {
+        this.heroRepository.deleteById(id);
     }
 }

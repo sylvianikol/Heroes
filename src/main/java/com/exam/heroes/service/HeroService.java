@@ -9,4 +9,8 @@ public interface HeroService {
     List<HeroServiceModel> getAll();
 
     boolean add(HeroServiceModel heroServiceModel);
+
+    HeroServiceModel getById(String id);
+
+    void deleteById(String id);
 }
