@@ -17,12 +17,21 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String index(HttpSession httpSession, Model model) {
+    public String index(HttpSession httpSession) {
         if (httpSession.getAttribute("user") == null) {
             return "index";
         }
-        // get all heroes ordered by level  descending
 
+        return "home";
+    }
+
+    @GetMapping("/home")
+    public String home(HttpSession httpSession, Model model) {
+        if (httpSession.getAttribute("user") == null) {
+            return "redirect:users/login";
+        }
+
+        // get all heroes ordered by level  descending
         // model.addAtribute("heroes")
 
         return "home";
