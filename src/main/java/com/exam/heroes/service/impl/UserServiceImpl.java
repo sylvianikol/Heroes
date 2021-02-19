@@ -1,5 +1,6 @@
 package com.exam.heroes.service.impl;
 
+import com.exam.heroes.model.entity.User;
 import com.exam.heroes.model.service.UserServiceModel;
 import com.exam.heroes.repository.UserRepository;
 import com.exam.heroes.service.UserService;
@@ -21,7 +22,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean register(UserServiceModel userServiceModel) {
-        return false;
+        try {
+            this.userRepository.save(this.modelMapper.map(userServiceModel, User.class));
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override
